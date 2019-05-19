@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['flappy.py', 'flappy.spec'],
+a = Analysis(['flappy.py'],
              pathex=['FlapPyBird'],
              binaries=[],
-             datas=[],
+             datas=[('assets', 'assets')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -19,15 +19,19 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
           [],
+          exclude_binaries=True,
           name='FlapPyBird',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          runtime_tmpdir=None,
-          icon='flappy.ico'
+          icon='flappy.ico',
           console=False )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               name='FlapPyBird')
